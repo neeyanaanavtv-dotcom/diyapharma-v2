@@ -1,0 +1,186 @@
+/* ============================================
+   DIYA PHARMA — Quotation System Styles
+   ============================================ */
+
+.quote-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.quote-modal-overlay.active { display: flex; }
+
+.quote-modal {
+    background: #fff;
+    width: 90%;
+    max-width: 900px;
+    height: 85vh;
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.quote-modal-header {
+    padding: var(--space-4) var(--space-6);
+    background: var(--primary-900);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quote-modal-header h3 { margin: 0; color: #fff; }
+
+.quote-close {
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.quote-close:hover { opacity: 1; }
+
+.quote-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-6);
+}
+
+/* Selection Step */
+.quote-selection-header {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.quote-search {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid var(--neutral-100);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+}
+
+.quote-product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-4);
+}
+
+.quote-product-item {
+    padding: var(--space-4);
+    border: 1px solid var(--neutral-100);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quote-product-item:hover {
+    border-color: var(--primary-200);
+    background: var(--primary-50);
+}
+
+.quote-product-item.selected {
+    background: var(--primary-50);
+    border-color: var(--primary-500);
+}
+
+.quote-product-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.quote-product-info h4 { margin: 0; font-size: 14px; }
+.quote-product-info p { margin: 0; font-size: 12px; color: var(--neutral-500); }
+
+/* Invoice Step */
+.invoice-view {
+    padding: var(--space-6);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+    border-bottom: 2px solid var(--neutral-100);
+    padding-bottom: var(--space-6);
+}
+
+.invoice-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--primary-900);
+}
+
+.invoice-user-details h4 { margin-bottom: var(--space-2); color: var(--primary-900); }
+.invoice-user-details p { margin: 2px 0; font-size: 14px; color: var(--neutral-600); }
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-8);
+}
+
+.invoice-table th {
+    text-align: left;
+    padding: 12px;
+    background: var(--neutral-50);
+    border-bottom: 2px solid var(--neutral-200);
+    font-size: 13px;
+}
+
+.invoice-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--neutral-100);
+    font-size: 14px;
+}
+
+.invoice-totals {
+    float: right;
+    width: 250px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.total-row.grand-total {
+    border-top: 2px solid var(--primary-500);
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--primary-900);
+    margin-top: 10px;
+}
+
+.quote-footer {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--neutral-100);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-4);
+}
+
+.hidden { display: none; }

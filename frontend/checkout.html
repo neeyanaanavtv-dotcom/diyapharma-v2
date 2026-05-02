@@ -120,7 +120,7 @@ function renderSummary() {
         <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid var(--neutral-100)">
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="width:40px;height:40px;background:#f8f9fc;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--neutral-200)">
-              ${i.img ? `<img src="${i.img}" style="width:80%;height:80%;object-fit:contain;">` : '💊'}
+              ${i.img ? `<img src="${i.img}" style="width:100%;height:100%;object-fit:contain;">` : '💊'}
             </div>
             <span>${i.name} × ${i.qty}</span>
           </div>
@@ -226,6 +226,13 @@ async function loadRecommendations() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Auth Guard
+  if (!DiyaPharma.user) {
+    showToast('Please login to continue to checkout', 'info');
+    setTimeout(() => { window.location.href = 'login.html?redirect=checkout.html'; }, 1500);
+    return;
+  }
+
   if (DiyaPharma.cart.length === 0) { window.location.href = 'cart.html'; return; }
   renderSummary();
   loadRecommendations();

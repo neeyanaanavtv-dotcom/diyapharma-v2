@@ -132,11 +132,7 @@ async function handleLogin(e) {
         }
       }, 1000);
     } catch (error) {
-      let errorMsg = error.message;
-      if (errorMsg === 'Invalid login credentials') {
-        errorMsg = 'Thala wrong password type pannitinga';
-      }
-      showToast(errorMsg, 'error', 10000);
+      showToast(error.message, 'error', 5000);
       btn.textContent = ogText;
       btn.disabled = false;
     }

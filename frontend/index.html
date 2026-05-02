@@ -7,6 +7,7 @@
   <meta name="description" content="Diya Pharma offers 1500+ quality pharmaceutical products across 11 therapeutic divisions. Retail and wholesale ordering with competitive pricing.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/homepage.css">
+  <link rel="stylesheet" href="css/quote.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>💊</text></svg>">
 </head>
@@ -29,7 +30,7 @@
     <div class="nav-actions">
       <a href="cart.html" class="nav-cart" id="navCart">🛒<span class="cart-badge cart-count" style="display:none">0</span></a>
       <a href="login.html" class="btn btn-sm btn-secondary" id="navAuth">Login</a>
-      <a href="products.html" class="btn btn-sm btn-primary">Get Quote</a>
+      <a href="javascript:void(0)" onclick="openQuoteModal()" class="btn btn-sm btn-primary">Get Quote</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -45,7 +46,7 @@
   <a href="contact.html">Contact</a>
   <a href="login.html">My Account</a>
   <a href="cart.html">Cart <span class="cart-count" style="display:none">(0)</span></a>
-  <a href="products.html" class="btn btn-primary" style="margin-top:16px">Get Quote</a>
+  <a href="javascript:void(0)" onclick="openQuoteModal()" class="btn btn-primary" style="margin-top:16px">Get Quote</a>
 </nav>
 
 <main>
@@ -116,7 +117,11 @@
 <section class="about-snippet">
   <div class="container">
     <div class="about-grid">
-      <div class="about-image fade-in-left">🏭</div>
+      <div class="about-image fade-in-left">
+        <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);">
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-technician-working-in-a-laboratory-40656-large.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="about-text fade-in-right">
         <div class="section-label">About Diya Pharma</div>
         <h2>Affordable, Quality-Driven Pharmaceutical Solutions</h2>
@@ -260,11 +265,83 @@
 </footer>
 </main>
 
+<!-- ===== QUOTATION MODAL ===== -->
+<div class="quote-modal-overlay" id="quoteModal">
+  <div class="quote-modal">
+    <div class="quote-modal-header">
+      <h3>Request a Quotation</h3>
+      <button class="quote-close" onclick="closeQuoteModal()">&times;</button>
+    </div>
+    <div class="quote-body" id="quoteSelectionView">
+      <div class="quote-selection-header">
+        <input type="text" class="quote-search" id="quoteSearch" placeholder="Search medicines by name or composition..." oninput="filterQuoteProducts(this.value)">
+      </div>
+      <div class="quote-product-list" id="quoteProductList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+    
+    <div class="quote-body hidden" id="quoteInvoiceView">
+      <div class="invoice-view" id="invoiceContent">
+        <div class="invoice-header">
+          <div class="invoice-brand">
+            <div class="invoice-logo">
+              <div class="logo-icon" style="background:var(--primary-900);color:#fff;width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;">D</div>
+              <span>Diya Pharma</span>
+            </div>
+            <p style="font-size:12px;color:var(--neutral-500);margin-top:5px;">Quality Healthcare Solutions</p>
+          </div>
+          <div class="invoice-user-details" id="invoiceUserDetails">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        
+        <h4>Estimated Quotation</h4>
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Composition</th>
+              <th>Packing</th>
+              <th style="text-align:right">MRP (Incl. Tax)</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+        
+        <div class="invoice-totals">
+          <div class="total-row"><span>Subtotal (Base)</span><span id="quoteSubtotal">₹0.00</span></div>
+          <div class="total-row"><span>Estimated Tax (12% GST)</span><span id="quoteTax">₹0.00</span></div>
+          <div class="total-row grand-total"><span>Grand Total</span><span id="quoteGrandTotal">₹0.00</span></div>
+        </div>
+        <div style="clear:both"></div>
+      </div>
+    </div>
+
+    <div class="quote-footer">
+      <div id="selectionActions">
+        <span style="font-size:14px;color:var(--neutral-600);margin-right:var(--space-4)" id="selectedCount">0 products selected</span>
+        <button class="btn btn-secondary" onclick="closeQuoteModal()">Cancel</button>
+        <button class="btn btn-primary" id="btnGenerateQuote" disabled onclick="generateQuotation()">Generate Quotation</button>
+      </div>
+      <div id="invoiceActions" class="hidden">
+        <button class="btn btn-secondary" onclick="backToSelection()">Back to Selection</button>
+        <button class="btn btn-accent" onclick="downloadQuotationPDF()">Download PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <script src="js/config.js?v=3"></script>
 <script src="js/api.js?v=3"></script>
 <script src="js/products.js?v=3"></script>
 <script src="js/app.js?v=3"></script>
 <script src="js/ui.js?v=3"></script>
+<script src="js/quote.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   // Populate divisions grid from database with logos

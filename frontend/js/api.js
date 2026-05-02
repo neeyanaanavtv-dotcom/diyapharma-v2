@@ -78,11 +78,11 @@ const API = {
       const foundUser = mockUsers.find(u => (u.email || '').toLowerCase() === searchEmail);
       
       if (!foundUser) {
-        throw new Error('Account not registered. Please create an account first.');
+        throw new Error('Account not registered. Please sign up first.');
       }
       
       if (foundUser.password !== password) {
-        throw new Error('Wrong password. Please try again.');
+        throw new Error('Wrong Password. Please try again.');
       }
       
       return {
