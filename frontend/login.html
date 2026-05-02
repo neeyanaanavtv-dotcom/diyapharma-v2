@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Register | Diya Pharma</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>💊</text></svg>">
+</head>
+<body>
+<header class="header"><div class="container">
+  <a href="index.html" class="logo"><div class="logo-icon">D</div><span>Diya Pharma</span></a>
+  <nav class="nav-links"><a href="index.html">Home</a><a href="products.html">Products</a><a href="about.html">About Us</a><a href="contact.html">Contact</a></nav>
+  <div class="nav-actions"><a href="cart.html" class="nav-cart">🛒<span class="cart-badge cart-count" style="display:none">0</span></a></div>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></header>
+<nav class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="products.html">Products</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+<main>
+<section class="auth-section">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="logo-icon" style="background:linear-gradient(135deg,var(--primary-600),var(--primary-400));color:#fff;display:flex;align-items:center;justify-content:center">D</div>
+      <h3>Welcome to Diya Pharma</h3>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" onclick="switchTab('login')">Login</div>
+      <div class="auth-tab" onclick="switchTab('register')">Register</div>
+    </div>
+    <!-- Login Form -->
+    <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" id="loginEmail" placeholder="your@email.com" required></div>
+      <div class="form-group"><label class="form-label">Password</label><a href="#" class="forgot-link" onclick="showForgotPassword(event)">Forgot Password?</a><input type="password" class="form-input" id="loginPassword" placeholder="Enter password" required minlength="6"></div>
+      <button type="submit" class="btn btn-primary btn-lg w-full">Login</button>
+      <div class="auth-divider">or</div>
+      <button type="button" class="social-btn">🔵 Continue with Google</button>
+    </form>
+    <!-- Forgot Password Form -->
+    <form class="auth-form" id="forgotForm" onsubmit="handleForgotPassword(event)">
+      <div style="text-align:center;margin-bottom:20px">
+        <span style="font-size:48px">🔐</span>
+        <h3 style="margin-top:12px;font-size:18px">Reset Your Password</h3>
+        <p style="color:#666;font-size:14px;margin-top:8px">Enter your registered email address. We will send you a password reset link.</p>
+      </div>
+      <div class="form-group"><label class="form-label">Registered Email</label><input type="email" class="form-input" id="forgotEmail" placeholder="your@email.com" required></div>
+      <button type="submit" class="btn btn-primary btn-lg w-full">Send Reset Link</button>
+      <div style="text-align:center;margin-top:16px"><a href="#" style="color:var(--primary-600);font-size:14px;font-weight:500" onclick="backToLogin(event)">← Back to Login</a></div>
+    </form>
+    <!-- Register Form -->
+    <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+      <div class="account-type-selector">
+        <div class="type-option selected" onclick="selectType(this,'retail')"><span class="type-icon">🏪</span>Retail</div>
+        <div class="type-option" onclick="selectType(this,'wholesale')"><span class="type-icon">🏭</span>Wholesale</div>
+        <div class="type-option" onclick="selectType(this,'admin')"><span class="type-icon">👑</span>Admin</div>
+      </div>
+      <div class="form-group"><label class="form-label">Full Name *</label><input type="text" class="form-input" id="regName" placeholder="John Doe" required></div>
+      <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="regEmail" placeholder="your@email.com" required></div>
+      <div class="form-group"><label class="form-label">Phone *</label><input type="tel" class="form-input" id="regPhone" placeholder="+91 XXXXX XXXXX" required></div>
+      <div class="form-group"><label class="form-label">Password *</label><input type="password" class="form-input" id="regPassword" placeholder="Min 6 characters" required minlength="6"></div>
+      
+      <!-- Dynamic Fields -->
+      <div class="form-group" id="licenseGroup"><label class="form-label">Drug License Number</label><input type="text" class="form-input" id="regLicense" placeholder="DL-XXX-XXXXX"></div>
+      <div class="form-group" id="adminSecretGroup" style="display:none;">
+        <label class="form-label" style="color:var(--danger)">Admin Security Key *</label>
+        <input type="password" class="form-input" id="regAdminKey" placeholder="Enter secret auth code" style="border-color:var(--danger)">
+        <small style="color:var(--neutral-500);font-size:12px;">Only authorized personnel can create Admin accounts.</small>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg w-full">Create Account</button>
+      <div class="auth-divider">or</div>
+      <button type="button" class="social-btn">🔵 Continue with Google</button>
+    </form>
+  </div>
+</section>
+</main>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script>
+let accountType = 'retail';
+function switchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t,i) => { t.classList.toggle('active', (tab==='login'?i===0:i===1)); });
+  document.getElementById('loginForm').classList.toggle('active', tab==='login');
+  document.getElementById('registerForm').classList.toggle('active', tab==='register');
+}
+function selectType(el, type) {
+  accountType = type;
+  document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  
+  // Show/Hide dynamic fields
+  document.getElementById('licenseGroup').style.display = (type === 'wholesale' || type === 'retail') ? 'block' : 'none';
+  
+  const adminGroup = document.getElementById('adminSecretGroup');
+  const adminKeyInput = document.getElementById('regAdminKey');
+  if (type === 'admin') {
+    adminGroup.style.display = 'block';
+    adminKeyInput.required = true;
+  } else {
+    adminGroup.style.display = 'none';
+    adminKeyInput.required = false;
+  }
+}
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const btn = e.target.querySelector('button[type="submit"]');
+  const ogText = btn.textContent;
+  
+  if (email && password.length >= 6) {
+    try {
+      btn.textContent = 'Logging in...';
+      btn.disabled = true;
+      
+      const data = await API.login(email, password);
+      
+      // Store user in app state
+      DiyaPharma.user = data.user;
+      localStorage.setItem('dp_user', JSON.stringify(data.user));
+      
+      showToast('Login successful! Welcome back.', 'success');
+      
+      // Dynamic Routing: Admins to Dashboard, Users to Homepage
+      setTimeout(() => {
+        if (data.user.type === 'admin') {
+          sessionStorage.setItem('diya_admin_auth', 'true');
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          window.location.href = 'index.html'; // Homepage!
+        }
+      }, 1000);
+    } catch (error) {
+      let errorMsg = error.message;
+      if (errorMsg === 'Invalid login credentials') {
+        errorMsg = 'Thala wrong password type pannitinga';
+      }
+      showToast(errorMsg, 'error', 10000);
+      btn.textContent = ogText;
+      btn.disabled = false;
+    }
+  }
+}
+async function handleRegister(e) {
+  e.preventDefault();
+  const password = document.getElementById('regPassword').value;
+  const btn = e.target.querySelector('button[type="submit"]');
+  const ogText = btn.textContent;
+
+  // Security Check for Admin Registration
+  if (accountType === 'admin') {
+    const secretKey = document.getElementById('regAdminKey').value;
+    if (secretKey !== 'DIYA-ADMIN-2026') {
+      showToast('Invalid Admin Security Key. Registration blocked.', 'error');
+      return;
+    }
+  }
+
+  const data = {
+    name: document.getElementById('regName').value,
+    email: document.getElementById('regEmail').value,
+    phone: document.getElementById('regPhone').value,
+    password: password,
+    type: accountType,
+    license: document.getElementById('regLicense').value
+  };
+
+  try {
+    btn.textContent = 'Creating...';
+    btn.disabled = true;
+    
+    const response = await API.register(data);
+    
+    // Store user in app state
+    DiyaPharma.user = response.user;
+    localStorage.setItem('dp_user', JSON.stringify(response.user));
+
+    showToast('Account created successfully!', 'success');
+    
+    // Route after registration
+    setTimeout(() => {
+      if (response.user.type === 'admin') {
+        sessionStorage.setItem('diya_admin_auth', 'true');
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+  } catch (error) {
+    showToast(error.message || 'Registration failed.', 'error');
+    btn.textContent = ogText;
+    btn.disabled = false;
+  }
+}
+function showForgotPassword(e) {
+  e.preventDefault();
+  document.getElementById('loginForm').classList.remove('active');
+  document.getElementById('registerForm').classList.remove('active');
+  document.getElementById('forgotForm').classList.add('active');
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+}
+function backToLogin(e) {
+  e.preventDefault();
+  document.getElementById('forgotForm').classList.remove('active');
+  document.getElementById('loginForm').classList.add('active');
+  document.querySelectorAll('.auth-tab').forEach((t,i) => { if(i===0) t.classList.add('active'); });
+}
+async function handleForgotPassword(e) {
+  e.preventDefault();
+  const email = document.getElementById('forgotEmail').value;
+  const btn = e.target.querySelector('button[type="submit"]');
+  const ogText = btn.textContent;
+
+  try {
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const response = await fetch(`${CONFIG.API_BASE_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Failed to send reset link');
+
+    showToast('Password reset link sent to your email! Check your inbox.', 'success', 10000);
+    setTimeout(() => backToLogin(new Event('click')), 3000);
+  } catch (error) {
+    showToast(error.message || 'Failed to send reset link.', 'error', 10000);
+  } finally {
+    btn.textContent = ogText;
+    btn.disabled = false;
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (DiyaPharma.user) window.location.href = 'dashboard.html';
+});
+</script>
+</body>
+</html>

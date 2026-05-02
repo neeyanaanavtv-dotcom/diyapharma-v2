@@ -1,0 +1,163 @@
+# Diya Pharma — Build Walkthrough
+
+## What Was Built
+
+A complete, production-ready pharmaceutical e-commerce website for **Diya Pharma** supporting both retail and wholesale operations. The design is inspired by [vibcare.co.in](https://vibcare.co.in) with a premium green/white pharmaceutical aesthetic.
+
+---
+
+## File Structure
+
+```
+c:\Users\DELL\Desktop\Diya Pharma\
+├── index.html              ← Homepage
+├── products.html           ← Product catalog with filters
+├── product-detail.html     ← Individual product page
+├── cart.html               ← Shopping cart
+├── checkout.html           ← 3-step checkout
+├── login.html              ← Login / Register
+├── dashboard.html          ← Account dashboard
+├── about.html              ← About Us
+├── contact.html            ← Contact page
+├── css/
+│   ├── style.css           ← Global design system (20KB)
+│   ├── homepage.css         ← Hero, carousels, testimonials
+│   ├── products.css         ← Filter sidebar, product grid
+│   ├── product-detail.css   ← Detail page layout
+│   ├── cart.css             ← Cart + checkout styles
+│   ├── auth.css             ← Login, register, dashboard
+│   └── responsive.css       ← All breakpoints (480-1280px)
+└── js/
+    ├── app.js              ← Core: cart, auth, orders, toasts
+    ├── products.js          ← 52 products, filter engine
+    └── ui.js               ← Carousel, tabs, lazy load
+```
+
+**Total: 10 HTML pages, 7 CSS files, 3 JS files (~120KB total)**
+
+---
+
+## Design System
+
+| Token | Value |
+|-------|-------|
+| **Primary** | `#0A6E3D` (forest green) → `#0D8C4D` → `#2ECC71` |
+| **Accent** | `#E8A317` (gold) for special CTAs |
+| **Font Headings** | Poppins (600-800 weight) |
+| **Font Body** | Inter (400-600 weight) |
+| **Border Radius** | 8px buttons, 12px cards, 16px modals |
+| **Shadows** | 3-tier: `sm`, `md`, `lg` + green glow for primary buttons |
+| **Transitions** | 150ms (fast), 300ms (base), 500ms (slow) |
+
+### Button Specifications (matching vibcare.co.in)
+
+| Button | Padding | Font | Colors | Hover |
+|--------|---------|------|--------|-------|
+| **Primary** | 12px 32px | Poppins 600, 14px, uppercase | Green gradient bg, white text | Darker green, translateY(-2px), stronger shadow |
+| **Secondary** | 12px 32px | Poppins 600, 14px, uppercase | Transparent bg, green border+text | Green fill, white text |
+| **Accent** | 12px 32px | Poppins 600, 14px, uppercase | Gold gradient bg, white text | Darker gold, translateY(-2px) |
+
+---
+
+## Pages & Features
+
+### 1. Homepage ([index.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/index.html))
+- Animated hero with gradient bg, floating glass cards, stats counters
+- 11 division chips (horizontal scroll)
+- "Now in Stock" product carousel (auto-play)
+- "New Launches" carousel
+- Why Choose Us — 4 feature cards with hover effects
+- Testimonials carousel
+- Trust badges (Genuine, Secure, Support, Delivery)
+- Partner enquiry form with glassmorphism
+- Full footer with 4 columns
+
+### 2. Products ([products.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/products.html))
+- Sticky filter sidebar: Form, Division, Therapeutic, Price Range
+- Division tab bar (horizontal)
+- Search bar with debounce
+- **Wholesale toggle** — switches between MRP-only and MRP+PTR+PTS display
+- Sort: A-Z, Price, Newest
+- Paginated product grid (12 per page)
+- Mobile: filter becomes slide-out drawer
+
+### 3. Product Detail ([product-detail.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/product-detail.html))
+- Product image, division badge, composition
+- **Pricing table**: MRP (Retail), PTR (Wholesale), PTS (Stockist)
+- Stock availability badge
+- Quantity selector + Add to Cart
+- Related products from same division
+
+### 4. Cart ([cart.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/cart.html))
+- Item table with quantity controls
+- Order summary: Subtotal + 12% GST + Shipping (free over ₹5,000)
+- Empty cart state with CTA
+
+### 5. Checkout ([checkout.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/checkout.html))
+- 3-step flow: Shipping → Payment → Confirmation
+- Address form with GST number field (wholesale)
+- Payment: COD, Bank Transfer, UPI
+- Order confirmation with unique order ID
+
+### 6. Login/Register ([login.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/login.html))
+- Tab toggle between Login and Register
+- **Account type selector**: Retail 🏪 vs Wholesale 🏭
+- Drug license number field for wholesale
+- Form validation
+- Google sign-in placeholder
+
+### 7. Dashboard ([dashboard.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/dashboard.html))
+- Sidebar: Orders, Profile, Addresses, Settings
+- Order stats cards (total orders, total spent, pending)
+- Order history table with status badges
+- Profile editor
+- Notification settings
+
+### 8. About ([about.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/about.html))
+- Company story, philosophy, vision, mission
+- Animated stats bar (1500+ products, 5000+ customers)
+- Certification badges (WHO-GMP, EU-PICS, ISO, UKMHRA)
+- Leadership team cards
+
+### 9. Contact ([contact.html](file:///c:/Users/DELL/Desktop/Diya%20Pharma/contact.html))
+- Contact form with subject selector
+- Info cards (email, phone, address, hours)
+- Map placeholder
+
+---
+
+## Key Technical Features
+
+- **localStorage persistence** — Cart, user sessions, and orders persist across browser refreshes
+- **52 pharmaceutical products** with real-world compositions and pricing (MRP/PTR/PTS)
+- **Multi-criteria filtering** — Combine division, form, therapeutic, price range
+- **Responsive** — 4 breakpoints (480, 768, 1024, 1280px) with hamburger menu
+- **Scroll animations** — IntersectionObserver-based fade-in effects
+- **Toast notifications** — Slide-in confirmations for cart/form actions
+- **Carousel system** — Reusable class with autoplay, responsive perView
+
+---
+
+## How to Run
+
+1. Open `c:\Users\DELL\Desktop\Diya Pharma\index.html` in any modern browser
+2. No build step, no server, no dependencies required
+3. All pages are linked — click through the full user flow
+
+> [!TIP]
+> For the best experience, use a local server to avoid CORS issues:
+> ```
+> cd "c:\Users\DELL\Desktop\Diya Pharma"
+> npx -y serve .
+> ```
+
+---
+
+## What's Next (Optional Enhancements)
+
+- Replace emoji icons with a proper icon library (Lucide, Phosphor)
+- Add real product images via the image generation tool
+- Connect to a backend API for real data persistence
+- Add payment gateway integration (Razorpay/Cashfree)
+- Add product image gallery with lightbox
+- Add blog/news section

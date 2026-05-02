@@ -1,0 +1,254 @@
+# Diya Pharma — E-Commerce Website for Pharmaceutical Distribution
+
+Build a production-ready, multi-page pharmaceutical e-commerce website for **Diya Pharma** supporting both retail and wholesale workflows, inspired by vibcare.co.in's design aesthetic.
+
+## Reference Site Analysis Summary
+
+From studying vibcare.co.in, the following design patterns were extracted:
+
+| Aspect | Details |
+|--------|---------|
+| **Primary Color** | Forest green `#1B6B3A` with gradients to `#0D4D29` |
+| **Accent Color** | Bright green `#2ECC71`, gold/amber `#F39C12` for highlights |
+| **Background** | White `#FFFFFF` with light gray sections `#F5F7FA` |
+| **Typography** | Clean sans-serif (Inter/Poppins), uppercase nav, bold headings |
+| **Layout** | Full-width hero → division tabs → product grid → testimonials → footer |
+| **Product Cards** | Image top, division badge, product name, composition, MRP/PTR/PTS pricing |
+| **Navigation** | Sticky top bar with logo left, nav center, CTA buttons right |
+| **Buttons** | Rounded corners (8px), green primary, white outline secondary, smooth hover transitions |
+| **Footer** | Dark green background, 4-column layout, social icons, contact form |
+
+---
+
+## Proposed Changes
+
+### File Structure
+
+```
+c:\Users\DELL\Desktop\Diya Pharma\
+├── index.html              # Homepage
+├── products.html           # Product catalog with filters
+├── product-detail.html     # Single product detail page
+├── cart.html               # Shopping cart
+├── checkout.html           # Checkout flow
+├── login.html              # Login/Registration
+├── dashboard.html          # Account dashboard + order history
+├── about.html              # About Us page
+├── contact.html            # Contact page
+├── css/
+│   ├── style.css           # Global styles + design system
+│   ├── homepage.css        # Homepage-specific styles
+│   ├── products.css        # Product catalog styles
+│   ├── product-detail.css  # Product detail page styles
+│   ├── cart.css            # Cart page styles
+│   ├── checkout.css        # Checkout styles
+│   ├── auth.css            # Login/register styles
+│   ├── dashboard.css       # Dashboard styles
+│   └── responsive.css      # All responsive breakpoints
+├── js/
+│   ├── app.js              # Core app logic, router, state management
+│   ├── products.js         # Product data, filtering, search
+│   ├── cart.js             # Cart operations
+│   ├── auth.js             # Authentication logic
+│   ├── checkout.js         # Checkout flow logic
+│   └── ui.js               # UI interactions, animations, modals
+└── assets/
+    └── images/             # Generated product & UI images
+```
+
+---
+
+### Design System (`css/style.css`)
+
+#### [NEW] [style.css](file:///c:/Users/DELL/Desktop/Diya Pharma/css/style.css)
+
+Global design tokens and base styles:
+
+- **Colors**: Primary green palette `#0A6E3D`, `#0D8C4D`, `#2ECC71`; accent gold `#E8A317`; neutral grays; danger red; semantic success/warning/error
+- **Typography**: Google Fonts — `Poppins` for headings, `Inter` for body; scale from 14px body to 48px hero headings
+- **Spacing**: 8px grid system (4, 8, 12, 16, 24, 32, 48, 64, 96px)
+- **Buttons**: 
+  - `.btn-primary`: Green bg `#0A6E3D`, white text, 12px 32px padding, 8px radius, `transform: translateY(-2px)` on hover
+  - `.btn-secondary`: White bg, green border, green text, filled on hover
+  - `.btn-accent`: Gold bg for special CTAs
+  - All buttons: `font-family: Poppins; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.3s ease`
+- **Cards**: White bg, subtle box-shadow `0 2px 12px rgba(0,0,0,0.08)`, 12px radius, hover lift effect
+- **Forms**: Consistent input styling with green focus borders
+- **Navigation**: Sticky header with glassmorphism backdrop-blur
+
+---
+
+### Pages
+
+#### [NEW] [index.html](file:///c:/Users/DELL/Desktop/Diya Pharma/index.html) — Homepage
+
+Sections (matching vibcare.co.in flow):
+1. **Sticky Navigation Bar** — Logo left, nav links center (Home, Products, About, Contact), Login/Cart icons + "Get Quote" CTA right
+2. **Hero Section** — Full-width gradient bg, headline "Your Trusted Pharmaceutical Partner", sub-text, two CTAs ("Browse Products" + "Wholesale Inquiry"), animated stats counters (1500+ Products, 5000+ Customers, 11+ Divisions)
+3. **Product Divisions** — Horizontal scrolling division tabs (Cardiology, Neurology, Dermatology, etc.) matching vibcare's AUSPIN/CURE/GRACE pattern
+4. **Featured Products Carousel** — "Now in Stock" product cards with auto-scroll
+5. **About Snippet** — Company intro with key value props
+6. **New Launches Grid** — Latest product additions, "View More" button
+7. **Why Choose Us** — 4 feature cards with icons (Quality, Portfolio, Pricing, Digital Solutions)
+8. **Testimonials Carousel** — Customer quotes with avatar, name, company
+9. **Trust Badges** — "100% Genuine Products", "Secure Payments", "24x7 Support"
+10. **Partner CTA Section** — Contact form (Name, Email, Phone, License) + "Send Enquiry" button
+11. **Footer** — 4 columns: Logo+tagline, Quick Links, Company Info, Contact+Social icons
+
+#### [NEW] [products.html](file:///c:/Users/DELL/Desktop/Diya Pharma/products.html) — Product Catalog
+
+- **Breadcrumb** navigation
+- **Division tabs** (horizontal) matching reference
+- **Filter sidebar** (collapsible on mobile): Form type (Tablets, Capsules, Syrup, etc.), Division, Therapeutic category, Packing type, Price range slider
+- **Product grid** (3 columns desktop, 2 tablet, 1 mobile): Division badge, product image, name, composition, packaging info, MRP/PTR/PTS prices
+- **Pagination** + **Sort by** (A-Z, Price low-high, Newest)
+- **Retail/Wholesale toggle** — switches pricing display between MRP and bulk pricing
+
+#### [NEW] [product-detail.html](file:///c:/Users/DELL/Desktop/Diya Pharma/product-detail.html) — Product Detail
+
+- Large product image gallery
+- Product name, composition, division, therapeutic category
+- **Pricing table**: Retail MRP, Wholesale PTR, Wholesale PTS with quantity tiers
+- Stock availability indicator
+- Specifications (packing type, form, manufacturer)
+- Quantity selector + "Add to Cart" button
+- Related products carousel
+
+#### [NEW] [cart.html](file:///c:/Users/DELL/Desktop/Diya Pharma/cart.html) — Shopping Cart
+
+- Cart items table with image, name, unit price, quantity control, subtotal
+- Remove item functionality
+- Cart summary sidebar: Subtotal, GST, Shipping, Total
+- "Continue Shopping" + "Proceed to Checkout" buttons
+- Empty cart state with CTA to browse products
+
+#### [NEW] [checkout.html](file:///c:/Users/DELL/Desktop/Diya Pharma/checkout.html) — Checkout
+
+- Step indicator (Shipping → Payment → Confirmation)
+- Shipping address form
+- Order summary sidebar
+- Payment method selection (Cash on Delivery, Bank Transfer, UPI)
+- Order confirmation view with order number
+
+#### [NEW] [login.html](file:///c:/Users/DELL/Desktop/Diya Pharma/login.html) — Authentication
+
+- Toggle between Login and Register forms
+- Login: Email + Password + "Forgot Password" link
+- Register: Name, Email, Phone, Password, Account Type (Retail/Wholesale), Drug License upload
+- Social login buttons (Google placeholder)
+- Form validation with inline error messages
+
+#### [NEW] [dashboard.html](file:///c:/Users/DELL/Desktop/Diya Pharma/dashboard.html) — Account Dashboard
+
+- Sidebar: Profile, Orders, Addresses, Settings
+- **Orders tab**: Order history table with status badges (Processing, Shipped, Delivered)
+- **Order detail**: Timeline tracker, items list, invoice download
+- **Profile tab**: Edit name, email, phone, license info
+- **Addresses tab**: Saved addresses with edit/delete
+
+#### [NEW] [about.html](file:///c:/Users/DELL/Desktop/Diya Pharma/about.html) — About Us
+
+- Company story with philosophy, vision, mission sections
+- Stats bar (Products, Customers, Divisions, Years)
+- Team/Leadership section
+- Certifications and compliance badges
+- "Featured In" media mentions section
+
+#### [NEW] [contact.html](file:///c:/Users/DELL/Desktop/Diya Pharma/contact.html) — Contact
+
+- Contact form (Name, Email, Phone, Description)
+- Company info cards (Email, Phone, Office Address)
+- Embedded map placeholder
+- Business hours
+
+---
+
+### JavaScript Architecture
+
+#### [NEW] [app.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/app.js)
+- `DiyaPharma` namespace for state management
+- Navigation highlighting and mobile menu toggle
+- Scroll animations (IntersectionObserver)
+- Toast notification system
+- Modal system
+
+#### [NEW] [products.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/products.js)
+- 50+ pharmaceutical product data objects with: id, name, composition, division, therapeutic category, form, packing, MRP, PTR, PTS, stock status, image
+- Filter engine (multi-criteria)
+- Search with debounced input
+- Pagination logic
+- Sort functionality
+
+#### [NEW] [cart.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/cart.js)
+- localStorage-based cart persistence
+- Add/remove/update quantities
+- Calculate totals with GST
+- Cart badge counter in navbar
+
+#### [NEW] [auth.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/auth.js)
+- localStorage-based user session simulation
+- Form validation
+- Retail vs Wholesale account type handling
+
+#### [NEW] [checkout.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/checkout.js)
+- Multi-step checkout flow
+- Address form handling
+- Order placement simulation with confirmation
+
+#### [NEW] [ui.js](file:///c:/Users/DELL/Desktop/Diya Pharma/js/ui.js)
+- Carousel/slider functionality
+- Smooth scroll behavior
+- Counter animations for stats
+- Image lazy loading
+- Accordion and tab components
+
+---
+
+### Responsive Design (`css/responsive.css`)
+
+#### [NEW] [responsive.css](file:///c:/Users/DELL/Desktop/Diya Pharma/css/responsive.css)
+
+| Breakpoint | Target |
+|-----------|--------|
+| `≤ 480px` | Small mobile |
+| `≤ 768px` | Large mobile / small tablet |
+| `≤ 1024px` | Tablet |
+| `≤ 1280px` | Small desktop |
+| `> 1280px` | Large desktop |
+
+Key responsive behaviors:
+- Hamburger menu on mobile
+- Product grid collapses from 3→2→1 columns
+- Filter sidebar becomes slide-out drawer on mobile
+- Cart table becomes stacked cards on mobile
+- Footer columns stack vertically
+
+---
+
+## Open Questions
+
+> [!IMPORTANT]
+> **Business Name**: I'll use "Diya Pharma" as the brand name (matching the workspace folder). Should this be different?
+
+> [!IMPORTANT]
+> **Product Data**: I'll create a realistic sample dataset of ~50 pharmaceutical products across divisions. Do you have actual product data you'd like to use instead?
+
+> [!NOTE]
+> **Backend**: This will be a fully front-end implementation using localStorage for persistence (cart, auth, orders). No real backend or payment integration. This is appropriate for a design deliverable but would need backend integration for production deployment.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Open each page in the browser and verify rendering
+- Test all navigation links work correctly
+- Test product filtering and search
+- Test cart add/remove/update operations
+- Test responsive layouts at all breakpoints
+
+### Manual Verification
+- Visual comparison with vibcare.co.in design patterns
+- Test all interactive elements (buttons, hover states, form validation)
+- Verify mobile responsiveness via browser dev tools
+- Test complete user flow: Browse → Filter → View Product → Add to Cart → Checkout
