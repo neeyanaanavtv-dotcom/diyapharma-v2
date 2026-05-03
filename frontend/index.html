@@ -274,13 +274,28 @@
       <button class="quote-close" onclick="closeQuoteModal()">&times;</button>
     </div>
     <div class="quote-body" id="quoteSelectionView">
-      <div class="quote-selection-header">
-        <input type="text" class="quote-search" id="quoteSearch" placeholder="Search medicines by name or composition..." oninput="filterQuoteProducts(this.value)">
-        <button class="btn btn-sm btn-primary" onclick="selectAllProducts()" style="white-space:nowrap">Select All</button>
-        <button class="btn btn-sm btn-secondary" onclick="clearAllProducts()" style="white-space:nowrap">Clear All</button>
+      <div class="quote-selection-header" style="flex-direction:column; align-items:stretch; gap:16px;">
+        <div style="display:flex; border-bottom:1px solid var(--neutral-200); padding-bottom:8px; gap:16px;" id="quoteCategoryTabs">
+          <button class="btn btn-sm btn-primary" id="tabMedicines" onclick="switchQuoteCategory('medicines')" style="flex:1">💊 Medicines</button>
+          <button class="btn btn-sm btn-secondary" id="tabDiapers" onclick="switchQuoteCategory('diapers')" style="flex:1">🩲 Diapers</button>
+        </div>
+        <div style="display:flex; gap:8px; width:100%;">
+          <input type="text" class="quote-search" id="quoteSearch" placeholder="Search products..." oninput="filterQuoteProducts(this.value)" style="flex:1">
+          <button class="btn btn-sm btn-primary" onclick="selectAllProducts()" style="white-space:nowrap">Select All</button>
+          <button class="btn btn-sm btn-secondary" onclick="clearAllProducts()" style="white-space:nowrap">Clear All</button>
+        </div>
       </div>
       <div class="quote-product-list" id="quoteProductList">
         <!-- Populated by JS -->
+      </div>
+    </div>
+    
+    <div class="quote-body hidden" id="quoteOptionsView" style="text-align:center; padding:var(--space-6) var(--space-4);">
+      <h3 style="margin-bottom:var(--space-4)">How would you like your quotation?</h3>
+      <p style="color:var(--neutral-600); margin-bottom:var(--space-6)">You have selected both Medicines and Diapers. You can generate a combined invoice or separate them.</p>
+      <div style="display:flex; flex-direction:column; gap:var(--space-3); max-width:300px; margin:0 auto;">
+        <button class="btn btn-primary" onclick="proceedToInvoice('combined')">📄 Generate Combined Invoice</button>
+        <button class="btn btn-accent" onclick="proceedToInvoice('separate')">📄📄 Generate Separate Invoices</button>
       </div>
     </div>
     

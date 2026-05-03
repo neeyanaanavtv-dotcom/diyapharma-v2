@@ -256,10 +256,41 @@
   }
 
   /* ===== FIX: Recommended products fit on mobile ===== */
-  .rec-grid { gap: var(--space-3); }
-  .rec-card { width: 100px; }
+  .rec-grid { 
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: var(--space-3) !important; 
+    -webkit-overflow-scrolling: touch;
+  }
+  .rec-card { width: 120px !important; flex-shrink: 0; }
   .rec-img-wrap { width: 80px; height: 80px; }
   .rec-name { font-size: 10px; }
+
+  /* ===== FIX: Quote Modal Mobile Layout ===== */
+  .quote-selection-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .quote-footer {
+    padding: var(--space-3);
+  }
+  #selectionActions, #invoiceActions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  #selectionActions .btn, #invoiceActions .btn {
+    width: 100%;
+  }
+  #selectedCount {
+    text-align: center;
+    margin-right: 0 !important;
+    margin-bottom: 4px;
+    display: block;
+  }
 }
 
 /* ---------- <= 480px (Small Mobile) ---------- */
