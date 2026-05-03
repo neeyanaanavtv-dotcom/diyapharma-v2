@@ -42,7 +42,7 @@ async function openQuoteModal() {
     
     // reset state
     document.getElementById('quoteSearch').value = '';
-    switchQuoteCategory('medicines', false);
+    switchQuoteCategory('medicines', true); // TRUE to render immediately
     
     document.getElementById('quoteModal').classList.add('active');
     document.body.style.overflow = 'hidden';

@@ -22,10 +22,18 @@ const DiyaPharma = {
     });
   },
 
-  addToCart(productId, qty = 1) {
-    const product = ProductData.find(p => p.id === productId);
-    if (!product) return;
-    const existing = this.cart.find(i => i.id === productId);
+  addToCart(itemOrId, qty = 1) {
+    let product;
+    if (typeof itemOrId === 'object' && itemOrId !== null) {
+      product = itemOrId;
+      qty = product.qty || qty;
+    } else {
+      product = typeof ProductData !== 'undefined' ? ProductData.find(p => p.id === itemOrId) : null;
+    }
+    
+    if (!product) { console.error("Product not found"); return; }
+    
+    const existing = this.cart.find(i => i.id === product.id);
     if (existing) { existing.qty += qty; }
     else { this.cart.push({ ...product, qty }); }
     this.saveCart();
