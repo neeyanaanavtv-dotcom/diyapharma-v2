@@ -93,7 +93,7 @@ function generateProductCard(product, showWholesale = false) {
     <div class="card product-card" onclick="window.location.href='product-detail.html?id=${product.id}'">
       <span class="card-badge" style="background:${col};color:#fff">${product.division}</span>
       ${product.isNew ? '<span class="card-badge badge-new" style="right:12px;left:auto;top:12px">NEW</span>' : ''}
-      <div style="background:var(--neutral-50);padding:20px;display:flex;align-items:center;justify-content:center;height:200px;overflow:hidden">
+      <div class="card-img-wrap" style="background:var(--neutral-50);padding:20px;display:flex;align-items:center;justify-content:center;overflow:hidden">
         ${product.img ? `<img src="${product.img}" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.1))">` : `<div style="width:120px;height:160px;background:linear-gradient(135deg,${col}22,${col}11);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:32px;color:${col}">💊</div>`}
       </div>
       <div class="card-body">

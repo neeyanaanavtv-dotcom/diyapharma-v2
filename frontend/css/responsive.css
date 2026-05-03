@@ -256,14 +256,18 @@
   }
 
   /* ===== FIX: Recommended products fit on mobile ===== */
-  .rec-grid { 
+  .rec-grid, .related-grid { 
     display: flex !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
     gap: var(--space-3) !important; 
     -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
   }
+  .rec-grid::-webkit-scrollbar, .related-grid::-webkit-scrollbar { display: none; }
   .rec-card { width: 120px !important; flex-shrink: 0; }
+  .related-grid .product-card { width: 150px !important; flex-shrink: 0; }
+  .related-grid .card-img-wrap { height: 120px !important; }
   .rec-img-wrap { width: 80px; height: 80px; }
   .rec-name { font-size: 10px; }
 

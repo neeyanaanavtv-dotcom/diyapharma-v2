@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Detail | Diya Pharma</title>
-  <link rel="stylesheet" href="css/style.css?v=4">
-  <link rel="stylesheet" href="css/product-detail.css?v=4">
-  <link rel="stylesheet" href="css/responsive.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/product-detail.css?v=7">
+  <link rel="stylesheet" href="css/responsive.css?v=7">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>💊</text></svg>">
 </head>
 <body>
@@ -60,8 +60,8 @@
 </main>
 
 <footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2024 Diya Pharma. All rights reserved.</span></div></div></footer>
-<script src="js/products.js?v=4"></script>
-<script src="js/app.js?v=4"></script>
+<script src="js/products.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
 <script>
 const colorMap = {AUSPIN:'#0EA5E9',CURE:'#8B5CF6',GRACE:'#EC4899',MIND:'#F59E0B',PRIMA:'#0A6E3D',OPTHO:'#06B6D4',NURALZ:'#F97316',EVERMED:'#10B981',GENVIMAX:'#6366F1',MEDANOR:'#EF4444',VENTILA:'#14B8A6'};
 function changeQty(d) { const i=document.getElementById('qtyInput'); i.value=Math.max(1,parseInt(i.value||1)+d); }
@@ -80,8 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const div = document.getElementById('detailDivision');
   div.textContent = product.division;
   div.style.background = col;
-  document.getElementById('detailImg').style.background = `linear-gradient(135deg,${col}22,${col}11)`;
-  document.getElementById('detailImg').style.color = col;
+  const imgContainer = document.getElementById('detailImg');
+  if (product.img) {
+    imgContainer.innerHTML = `<img src="${product.img}" alt="${product.name}" style="width:100%;height:100%;object-fit:contain;">`;
+    imgContainer.style.background = 'transparent';
+  } else {
+    imgContainer.style.background = `linear-gradient(135deg,${col}22,${col}11)`;
+    imgContainer.style.color = col;
+  }
   document.getElementById('detailStock').innerHTML = product.stock ? '<div class="stock-badge stock-in">✓ In Stock</div>' : '<div class="stock-badge stock-out">✕ Out of Stock</div>';
   document.getElementById('pricingBody').innerHTML = `
     <tr><td>MRP (Retail)</td><td class="price-highlight">₹${product.mrp.toFixed(2)}</td><td>Per unit</td></tr>
