@@ -108,19 +108,24 @@ function showToast(message, type = 'success', duration = 3000) {
 /* ---------- Header Scroll & Mobile Menu ---------- */
 function initHeader() {
   const header = document.querySelector('.header');
-  if (!header) return;
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 20);
-  });
-  const toggle = document.querySelector('.menu-toggle');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (toggle && mobileNav) {
-    toggle.addEventListener('click', () => {
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  }
+
+  // Mobile Menu Toggle
+  document.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.menu-toggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    if (toggle && mobileNav) {
       toggle.classList.toggle('active');
       mobileNav.classList.toggle('active');
       document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
-    });
-  }
+    }
+  });
+
   // Active nav link
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {

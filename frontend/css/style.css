@@ -399,6 +399,9 @@ h5 { font-size: var(--text-lg); }
   gap: 5px;
   padding: 4px;
   cursor: pointer;
+  background: transparent;
+  border: none;
+  z-index: 1000;
 }
 .menu-toggle span {
   width: 24px;
@@ -406,6 +409,7 @@ h5 { font-size: var(--text-lg); }
   background: var(--neutral-800);
   border-radius: 2px;
   transition: all var(--transition-base);
+  pointer-events: none; /* Fix click targeting */
 }
 .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
 .menu-toggle.active span:nth-child(2) { opacity: 0; }
