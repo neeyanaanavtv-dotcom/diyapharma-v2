@@ -279,8 +279,8 @@
           <button class="btn btn-sm btn-primary" id="tabMedicines" onclick="switchQuoteCategory('medicines')" style="flex:1">💊 Medicines</button>
           <button class="btn btn-sm btn-secondary" id="tabDiapers" onclick="switchQuoteCategory('diapers')" style="flex:1">🩲 Diapers</button>
         </div>
-        <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
-          <input type="text" class="quote-search" id="quoteSearch" placeholder="Search products..." oninput="filterQuoteProducts(this.value)" style="width:100%;">
+        <div style="display:flex; gap:8px; width:100%; flex-wrap:wrap; align-items:center;">
+          <input type="text" class="quote-search" id="quoteSearch" placeholder="Search products..." oninput="filterQuoteProducts(this.value)" style="flex:1; min-width:200px;">
           <div style="display:flex; gap:8px; width:100%;">
             <button class="btn btn-sm btn-primary" onclick="selectAllProducts()" style="flex:1;">Select All</button>
             <button class="btn btn-sm btn-secondary" onclick="clearAllProducts()" style="flex:1;">Clear All</button>
